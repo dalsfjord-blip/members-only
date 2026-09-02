@@ -1,0 +1,28 @@
+<h1>Secret Posts</h1>
+
+<%# Link to create post or sign in/up %>
+<% if user_signed_in? %>
+  <p>Logged in as: <strong><%= current_user.email %></strong> | <%= button_to "Sign Out", destroy_user_session_path, method: :delete %></p>
+  <p><%= link_to "Create New Post", new_post_path %></p>
+<% else %>
+  <p><%= link_to "Sign In", new_user_session_path %> | <%= link_to "Sign Up", new_user_registration_path %></p>
+<% end %>
+
+<hr>
+
+<%# Render each post %>
+<% @posts.each do |post| %>
+  <article style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+    <h2><%= post.title %></h2>
+    <p><%= post.body %></p>
+
+    <small style="color: #666;">
+      <%# STEP 7: Show author ONLY if user is signed in %>
+      <% if user_signed_in? %>
+        <strong>Author:</strong> <%= post.user.email %>
+      <% else %>
+        <strong>Author:</strong> <em>[Members Only]</em>
+      <% end %>
+    </small>
+  </article>
+<% end %>

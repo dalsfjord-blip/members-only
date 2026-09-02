@@ -1,0 +1,32 @@
+<h1>New Secret Post</h1>
+
+<%= form_with model: @post do |f| %>
+  <% if @post.errors.any? %>
+    <div style="color: red; margin-bottom: 15px;">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= f.label :body, "Secret Post Content" %><br>
+    <%= f.text_area :body, rows: 5 %>
+  </div>
+
+  <br>
+
+  <%= f.submit "Create Post" %>
+<% end %>
+
+<p><%= link_to "Back to Posts", posts_path %></p>
